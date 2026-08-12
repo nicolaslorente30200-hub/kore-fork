@@ -20,3 +20,9 @@ jobs:
         
       - name: Build
         run: bash gradlew assembleRelease lintRelease testDebugUnitTest
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-unsigned
+          path: app/build/outputs/apk/release/*.apk
