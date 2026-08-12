@@ -20,16 +20,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/navigation_drawer_item_hosts_height"
+    android:layout_height="@dimen/navigation_drawer_item_height"
     android:background="?attr/colorSurfaceVariant">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/navigation_drawer_item_hosts_height"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/drawer_image"
-        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/drawer_item_icon"

@@ -396,6 +396,8 @@ public class TVShowListFragment extends AbstractCursorListFragment {
 
         @Override
         public void bindView(Cursor cursor) {
+            UIUtils.applyPosterSize(context, artView, R.dimen.tvshowlist_art_width, R.dimen.tvshowlist_art_heigth);
+
             // Save the movie id
             dataHolder.setId(cursor.getInt(TVShowListQuery.TVSHOWID));
             dataHolder.setTitle(cursor.getString(TVShowListQuery.TITLE));

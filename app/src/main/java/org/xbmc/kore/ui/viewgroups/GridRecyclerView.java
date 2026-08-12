@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
+import org.xbmc.kore.utils.UIUtils;
+
 /**
  * Recycler View using a grid layout that supports auto sizing and showing an empty view when the adapter has no items.
  * You can set the column width and column count using styleables:
@@ -69,7 +71,7 @@ public class GridRecyclerView extends FastScrollRecyclerView {
             };
             TypedArray array = context.obtainStyledAttributes(
                     attrs, attrsArray);
-            columnWidth = array.getDimensionPixelSize(0, -1);
+            columnWidth = Math.round(array.getDimensionPixelSize(0, -1) * UIUtils.getPosterSizeScaleFactor(context));
             columnCount = array.getInteger(1, AUTO_FIT);
             array.recycle();
         }

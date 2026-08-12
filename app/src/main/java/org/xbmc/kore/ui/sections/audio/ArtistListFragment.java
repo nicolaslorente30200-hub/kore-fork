@@ -226,6 +226,8 @@ public class ArtistListFragment extends AbstractCursorListFragment {
 
         @Override
         public void bindView(Cursor cursor) {
+            UIUtils.applyPosterSize(context, art, R.dimen.artistlist_art_width, R.dimen.artistlist_art_heigth);
+
             dataHolder.setId(cursor.getInt(ArtistListQuery.ARTISTID));
             dataHolder.setTitle(cursor.getString(ArtistListQuery.ARTIST));
             dataHolder.setUndertitle(cursor.getString(ArtistListQuery.GENRE));

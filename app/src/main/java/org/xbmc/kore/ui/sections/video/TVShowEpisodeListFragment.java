@@ -283,6 +283,8 @@ public class TVShowEpisodeListFragment extends AbstractCursorListFragment {
 
         @Override
         public void bindView(Cursor cursor) {
+            UIUtils.applyPosterSize(context, artView, R.dimen.episodelist_art_width, R.dimen.episodelist_art_heigth);
+
             // Save the episode id
             dataHolder.setId(cursor.getInt(EpisodesListQuery.EPISODEID));
             dataHolder.setTitle(cursor.getString(EpisodesListQuery.TITLE));

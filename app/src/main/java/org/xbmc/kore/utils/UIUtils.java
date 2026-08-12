@@ -39,6 +39,7 @@ import android.util.DisplayMetrics;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.GridLayout;
@@ -404,6 +405,39 @@ public class UIUtils {
         if (vibrateOnPress) {
             view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         }
+    }
+
+    /**
+     * Scale factor to apply to poster/thumbnail dimensions, based on the user's
+     * {@link Settings#KEY_PREF_POSTER_SIZE} preference
+     */
+    public static float getPosterSizeScaleFactor(Context context) {
+        String posterSize = PreferenceManager
+                .getDefaultSharedPreferences(context)
+                .getString(Settings.KEY_PREF_POSTER_SIZE, Settings.DEFAULT_PREF_POSTER_SIZE);
+        if (Settings.POSTER_SIZE_SMALL.equals(posterSize)) {
+            return 0.7f;
+        } else if (Settings.POSTER_SIZE_LARGE.equals(posterSize)) {
+            return 1.35f;
+        } else {
+            return 1f;
+        }
+    }
+
+    /**
+     * Resizes a poster/thumbnail view's layout params according to the user's item size preference,
+     * scaled from the screen's base (medium) dimensions
+     * @param posterView The poster/thumbnail view to resize
+     * @param baseWidthDimenResId Dimension resource for the view's width at the medium size
+     * @param baseHeightDimenResId Dimension resource for the view's height at the medium size
+     */
+    public static void applyPosterSize(Context context, View posterView, int baseWidthDimenResId, int baseHeightDimenResId) {
+        float scaleFactor = getPosterSizeScaleFactor(context);
+        Resources resources = context.getResources();
+        ViewGroup.LayoutParams layoutParams = posterView.getLayoutParams();
+        layoutParams.width = Math.round(resources.getDimensionPixelSize(baseWidthDimenResId) * scaleFactor);
+        layoutParams.height = Math.round(resources.getDimensionPixelSize(baseHeightDimenResId) * scaleFactor);
+        posterView.setLayoutParams(layoutParams);
     }
 
     /**

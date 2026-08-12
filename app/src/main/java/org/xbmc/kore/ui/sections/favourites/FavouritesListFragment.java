@@ -217,6 +217,8 @@ public class FavouritesListFragment
         }
 
         void bindView(FavouriteType.DetailsFavourite favouriteDetail) {
+            UIUtils.applyPosterSize(context, artView, R.dimen.filelist_art_width, R.dimen.filelist_art_heigth);
+
             titleView.setText(UIUtils.applyMarkup(context, favouriteDetail.title));
 
             @StringRes final int typeRes;

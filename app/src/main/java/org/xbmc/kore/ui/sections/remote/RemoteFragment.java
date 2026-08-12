@@ -46,6 +46,7 @@ import org.xbmc.kore.jsonrpc.method.Input;
 import org.xbmc.kore.jsonrpc.type.ListType;
 import org.xbmc.kore.jsonrpc.type.PlayerType;
 import org.xbmc.kore.ui.widgets.ControlPad;
+import org.xbmc.kore.ui.widgets.GestureTrackpad;
 import org.xbmc.kore.utils.LogUtils;
 import org.xbmc.kore.utils.UIUtils;
 import org.xbmc.kore.utils.Utils;
@@ -60,7 +61,8 @@ import java.util.Set;
 public class RemoteFragment extends Fragment
         implements HostConnectionObserver.PlayerEventsObserver,
                    HostConnectionObserver.ApplicationEventsObserver,
-                   ControlPad.OnPadButtonsListener {
+                   ControlPad.OnPadButtonsListener,
+                   GestureTrackpad.OnTrackpadGestureListener {
     private static final String TAG = LogUtils.makeLogTag(RemoteFragment.class);
 
     /**
@@ -134,6 +136,14 @@ public class RemoteFragment extends Fragment
 
         // Setup view
         binding.remote.setOnPadButtonsListener(this);
+        binding.trackpad.setOnTrackpadGestureListener(this);
+        updateRemoteControlMode();
+
+        // Tapping the thumbnail toggles fullscreen playback on the host
+        binding.poster.setOnClickListener(v -> {
+            GUI.SetFullscreen actionSetFullscreen = new GUI.SetFullscreen();
+            actionSetFullscreen.execute(hostManager.getConnection(), null, null);
+        });
         binding.mediaActionsBar.completeSetup(requireContext(), this.getParentFragmentManager());
 
         HostInfo hostInfo = hostManager.getHostInfo();
@@ -182,6 +192,23 @@ public class RemoteFragment extends Fragment
         hostConnectionObserver.registerApplicationObserver(this);
         if (eventServerConnection == null)
             eventServerConnection = createEventServerConnection();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateRemoteControlMode();
+    }
+
+    /**
+     * Switches between the directional pad and the gesture trackpad, based on the user's preference
+     */
+    private void updateRemoteControlMode() {
+        boolean gestureModeEnabled = PreferenceManager
+                .getDefaultSharedPreferences(requireContext())
+                .getBoolean(Settings.KEY_PREF_REMOTE_GESTURE_MODE, Settings.DEFAULT_PREF_REMOTE_GESTURE_MODE);
+        binding.remote.setVisibility(gestureModeEnabled ? View.GONE : View.VISIBLE);
+        binding.trackpad.setVisibility(gestureModeEnabled ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -468,5 +495,45 @@ public class RemoteFragment extends Fragment
     @Override
     public void osdButtonClicked() {
         osdButtonAction.execute(hostManager.getConnection(), defaultActionCallback, callbackHandler);
+    }
+
+    /**
+     * GestureTrackpad.OnTrackpadGestureListener interface callbacks
+     * Mapped onto the same actions as the directional pad, following Yatse's gesture convention:
+     * swipes navigate, a tap selects, a double-tap goes back and a long press opens the context menu.
+     */
+    @Override
+    public void onSwipeUp() {
+        upButtonClicked();
+    }
+
+    @Override
+    public void onSwipeDown() {
+        downButtonClicked();
+    }
+
+    @Override
+    public void onSwipeLeft() {
+        leftButtonClicked();
+    }
+
+    @Override
+    public void onSwipeRight() {
+        rightButtonClicked();
+    }
+
+    @Override
+    public void onTap() {
+        selectButtonClicked();
+    }
+
+    @Override
+    public void onDoubleTap() {
+        backButtonClicked();
+    }
+
+    @Override
+    public void onLongPress() {
+        contextButtonClicked();
     }
 }

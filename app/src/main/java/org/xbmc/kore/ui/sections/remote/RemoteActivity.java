@@ -28,6 +28,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
@@ -123,7 +124,17 @@ public class RemoteActivity
         };
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.pager, bottomInsetsListener);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.navigationDrawer, bottomInsetsListener);
+
+        // The drawer's list starts at the very top of the screen (it's not below a toolbar like the
+        // rest of the activity), so it also needs a top margin or its first row ends up under the status bar
+        ViewCompat.setOnApplyWindowInsetsListener(binding.navigationDrawer, (v, windowInsets) -> {
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            Insets systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            mlp.topMargin = systemBars.top;
+            mlp.bottomMargin = systemBars.bottom;
+            v.setLayoutParams(mlp);
+            return windowInsets;
+        });
 
         // Set up the drawer.
         navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
@@ -141,7 +152,12 @@ public class RemoteActivity
         binding.pager.setCurrentItem(1, false);
         binding.pager.setOffscreenPageLimit(2);
         binding.pager.registerOnPageChangeCallback(defaultOnPageChangeCallback);
-        binding.pagerIndicator.setViewPager(binding.pager);
+
+        binding.navNowPlaying.setOnClickListener(v -> binding.pager.setCurrentItem(0));
+        binding.navRemote.setOnClickListener(v -> binding.pager.setCurrentItem(1));
+        binding.navPlaylist.setOnClickListener(v -> binding.pager.setCurrentItem(2));
+        updateNavTabs(1);
+        updatePagerSwipeEnabled();
 
         setupActionBar();
 
@@ -157,6 +173,7 @@ public class RemoteActivity
     @Override
     public void onResume() {
         super.onResume();
+        updatePagerSwipeEnabled();
         hostConnectionObserver = hostManager.getHostConnectionObserver();
         hostConnectionObserver.registerPlayerObserver(this);
         // Force a refresh, specifically to update the time elapsed on the fragments
@@ -318,12 +335,34 @@ public class RemoteActivity
         }
     }
 
+    /**
+     * Highlights the top nav button matching the currently visible page
+     */
+    private void updateNavTabs(int position) {
+        binding.navNowPlaying.setHighlight(position == 0);
+        binding.navRemote.setHighlight(position == 1);
+        binding.navPlaylist.setHighlight(position == 2);
+    }
+
+    /**
+     * The gesture trackpad's own left/right swipes conflict with the pager's swipe-to-switch-screen
+     * gesture, so swiping between screens is disabled while it's active; the top nav buttons remain
+     * the way to switch screens in that case.
+     */
+    private void updatePagerSwipeEnabled() {
+        boolean gestureModeEnabled = PreferenceManager
+                .getDefaultSharedPreferences(this)
+                .getBoolean(Settings.KEY_PREF_REMOTE_GESTURE_MODE, Settings.DEFAULT_PREF_REMOTE_GESTURE_MODE);
+        binding.pager.setUserInputEnabled(!gestureModeEnabled);
+    }
+
 
     // Default page change listener, that doesn't scroll images
     ViewPager2.OnPageChangeCallback defaultOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
         public void onPageSelected(int position) {
             setToolbarTitle(binding.defaultToolbar, position);
+            updateNavTabs(position);
         }
     };
 

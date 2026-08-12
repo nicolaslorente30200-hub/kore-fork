@@ -41,6 +41,9 @@
             android:layout_height="@dimen/remote_poster_height"
             android:contentDescription="@string/poster"
             android:scaleType="centerCrop"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Kore.Image.PosterRemote" />
@@ -206,6 +209,17 @@
         android:layout_height="@dimen/control_pad_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/sections_button_bar"
+        android:layout_marginBottom="@dimen/remote_margin_bottom" />
+
+    <org.xbmc.kore.ui.widgets.GestureTrackpad
+        android:id="@+id/trackpad"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/media_panel"
         app:layout_constraintBottom_toTopOf="@id/sections_button_bar"
         android:layout_marginBottom="@dimen/remote_margin_bottom" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -329,6 +329,8 @@ public class AddonListFragment extends AbstractListFragment {
         }
 
         public void onBind(AddonType.Details addonDetails) {
+            UIUtils.applyPosterSize(context, artView, R.dimen.filelist_art_width, R.dimen.filelist_art_heigth);
+
             dataHolder.setTitle(addonDetails.name);
             dataHolder.setDescription(addonDetails.description);
             dataHolder.setUndertitle(addonDetails.summary);

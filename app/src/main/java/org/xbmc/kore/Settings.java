@@ -160,6 +160,15 @@ public class Settings {
     public static final String KEY_PREF_VIBRATE_REMOTE_BUTTONS = "pref_vibrate_remote_buttons";
     public static final boolean DEFAULT_PREF_VIBRATE_REMOTE_BUTTONS = false;
 
+    // Use gesture trackpad instead of the directional pad on the remote screen
+    public static final String KEY_PREF_REMOTE_GESTURE_MODE = "pref_remote_gesture_mode";
+    public static final boolean DEFAULT_PREF_REMOTE_GESTURE_MODE = false;
+
+    // Size of the posters/thumbnails shown in the media list/grid screens
+    public static final String POSTER_SIZE_SMALL = "small", POSTER_SIZE_MEDIUM = "medium", POSTER_SIZE_LARGE = "large";
+    public static final String KEY_PREF_POSTER_SIZE = "pref_poster_size";
+    public static final String DEFAULT_PREF_POSTER_SIZE = POSTER_SIZE_MEDIUM;
+
     // Current host id
     public static final String KEY_PREF_CURRENT_HOST_ID = "current_host_id";
     public static final int DEFAULT_PREF_CURRENT_HOST_ID = -1;

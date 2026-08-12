@@ -70,6 +70,9 @@
                     android:contentDescription="@string/poster"
                     android:elevation="@dimen/kore_elevation_level2"
                     android:scaleType="centerCrop"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="@id/poster_bottom_guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Kore.Image.Poster" />

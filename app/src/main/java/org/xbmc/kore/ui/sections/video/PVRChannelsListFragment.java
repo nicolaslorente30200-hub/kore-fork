@@ -554,6 +554,7 @@ public class PVRChannelsListFragment
             String details = (channelDetails.broadcastnow != null) ?
                     channelDetails.broadcastnow.title : null;
             detailsView.setText(UIUtils.applyMarkup(context, details));
+            UIUtils.applyPosterSize(context, artView, R.dimen.channellist_art_width, R.dimen.channellist_art_heigth);
             UIUtils.loadImageWithCharacterAvatar(context, hostManager,
                     channelDetails.thumbnail, channelDetails.channel,
                     artView, artWidth, artHeight);

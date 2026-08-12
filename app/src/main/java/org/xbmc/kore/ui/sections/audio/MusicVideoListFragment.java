@@ -196,6 +196,8 @@ public class MusicVideoListFragment extends AbstractCursorListFragment {
         }
         @Override
         public void bindView(Cursor cursor) {
+            UIUtils.applyPosterSize(context, artView, R.dimen.artistlist_art_width, R.dimen.artistlist_art_heigth);
+
             dataHolder.setId(cursor.getInt(MusicVideosListQuery.MUSICVIDEOID));
             dataHolder.setTitle(cursor.getString(MusicVideosListQuery.TITLE));
 

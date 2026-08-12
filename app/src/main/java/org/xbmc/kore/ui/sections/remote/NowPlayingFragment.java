@@ -34,6 +34,7 @@ import org.xbmc.kore.databinding.FragmentNowPlayingBinding;
 import org.xbmc.kore.host.HostConnectionObserver;
 import org.xbmc.kore.host.HostInfo;
 import org.xbmc.kore.host.HostManager;
+import org.xbmc.kore.jsonrpc.method.GUI;
 import org.xbmc.kore.jsonrpc.notification.Player;
 import org.xbmc.kore.jsonrpc.type.ListType;
 import org.xbmc.kore.jsonrpc.type.PlayerType;
@@ -97,6 +98,12 @@ public class NowPlayingFragment extends Fragment
 
         binding.includeInfoPanel.infoPanel.setVisibility(View.VISIBLE);
         binding.mediaPanel.setVisibility(View.GONE);
+
+        // Tapping the thumbnail toggles fullscreen playback on the host, same as the toolbar action
+        binding.poster.setOnClickListener(v -> {
+            GUI.SetFullscreen actionSetFullscreen = new GUI.SetFullscreen();
+            actionSetFullscreen.execute(hostManager.getConnection(), null, null);
+        });
     }
 
     @Override

@@ -20,4 +20,21 @@
     <item android:id="@+id/action_multi_single_columns"
           android:title="@string/single_column"
           app:showAsAction="never"/>
+
+    <item android:title="@string/poster_size"
+          app:showAsAction="never">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/action_poster_size_small"
+                      android:title="@string/poster_size_small"
+                      app:showAsAction="never"/>
+                <item android:id="@+id/action_poster_size_medium"
+                      android:title="@string/poster_size_medium"
+                      app:showAsAction="never"/>
+                <item android:id="@+id/action_poster_size_large"
+                      android:title="@string/poster_size_large"
+                      app:showAsAction="never"/>
+            </group>
+        </menu>
+    </item>
 </menu>

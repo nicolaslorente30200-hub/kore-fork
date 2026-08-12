@@ -149,6 +149,17 @@ public abstract class AbstractListFragment
 			item.setEnabled(false);
 		}
 
+		String posterSize = PreferenceManager
+				.getDefaultSharedPreferences(requireContext())
+				.getString(Settings.KEY_PREF_POSTER_SIZE, Settings.DEFAULT_PREF_POSTER_SIZE);
+		if (Settings.POSTER_SIZE_SMALL.equals(posterSize)) {
+			menu.findItem(R.id.action_poster_size_small).setChecked(true);
+		} else if (Settings.POSTER_SIZE_LARGE.equals(posterSize)) {
+			menu.findItem(R.id.action_poster_size_large).setChecked(true);
+		} else {
+			menu.findItem(R.id.action_poster_size_medium).setChecked(true);
+		}
+
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
@@ -157,8 +168,23 @@ public abstract class AbstractListFragment
 		int itemId = item.getItemId();
 		if (itemId == R.id.action_multi_single_columns) {
 			toggleAmountOfColumns(item);
+		} else if (itemId == R.id.action_poster_size_small) {
+			setPosterSize(item, Settings.POSTER_SIZE_SMALL);
+		} else if (itemId == R.id.action_poster_size_medium) {
+			setPosterSize(item, Settings.POSTER_SIZE_MEDIUM);
+		} else if (itemId == R.id.action_poster_size_large) {
+			setPosterSize(item, Settings.POSTER_SIZE_LARGE);
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void setPosterSize(MenuItem item, String posterSize) {
+		PreferenceManager.getDefaultSharedPreferences(requireContext())
+				.edit()
+				.putString(Settings.KEY_PREF_POSTER_SIZE, posterSize)
+				.apply();
+		item.setChecked(true);
+		adapter.notifyDataSetChanged();
 	}
 
 	private void toggleAmountOfColumns(MenuItem item) {

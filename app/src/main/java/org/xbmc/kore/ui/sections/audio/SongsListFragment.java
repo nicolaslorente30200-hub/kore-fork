@@ -346,6 +346,8 @@ public class SongsListFragment extends AbstractCursorListFragment {
         public void bindView(Cursor cursor) {
             super.bindView(cursor);
 
+            UIUtils.applyPosterSize(context, art, R.dimen.artistlist_art_width, R.dimen.artistlist_art_heigth);
+
             String title = cursor.getString(SongsListQuery.TITLE);
             titleView.setText(title);
             String artistAlbum = cursor.getString(SongsListQuery.SONGDISPLAYARTIST) + DELIMITER +

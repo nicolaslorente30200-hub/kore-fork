@@ -515,6 +515,8 @@ public class LocalMediaFileListFragment extends AbstractListFragment {
         }
 
         public void bindView(LocalFileLocation fileLocation, int position) {
+            UIUtils.applyPosterSize(context, art, R.dimen.filelist_art_width, R.dimen.filelist_art_heigth);
+
             title.setText(fileLocation.fileName);
             setViewText(details, fileLocation.details);
             setViewText(sizeDuration, fileLocation.sizeDuration);

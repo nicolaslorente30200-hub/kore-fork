@@ -427,6 +427,7 @@ public class PVRRecordingsListFragment
 
             titleView.setText(UIUtils.applyMarkup(context, recordingDetails.title));
             detailsView.setText(UIUtils.applyMarkup(context, recordingDetails.channel));
+            UIUtils.applyPosterSize(context, artView, R.dimen.recordinglist_art_width, R.dimen.recordinglist_art_heigth);
             UIUtils.loadImageWithCharacterAvatar(context, hostManager,
                     (recordingDetails.art != null) ?
                             recordingDetails.art.poster : recordingDetails.icon,

@@ -612,6 +612,8 @@ public class MediaFileListFragment extends AbstractListFragment {
         }
 
         public void bindView(FileLocation fileLocation, int position) {
+            UIUtils.applyPosterSize(context, art, R.dimen.filelist_art_width, R.dimen.filelist_art_heigth);
+
             title.setText(UIUtils.applyMarkup(context, fileLocation.title));
             if (TextUtils.isEmpty(fileLocation.details) && TextUtils.isEmpty(fileLocation.sizeDuration)) {
                 title.setSingleLine(false);

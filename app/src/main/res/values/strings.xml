@@ -419,6 +419,8 @@
     <string name="show_now_playing_panel_summary">Display a panel at the bottom of the screen when media is playing</string>
     <string name="pause_during_calls">Pause during phone call</string>
     <string name="vibrate_on_remote">Vibrate on touch</string>
+    <string name="remote_gesture_mode">Use gesture trackpad</string>
+    <string name="remote_gesture_mode_summary">Replace the directional pad with a full-area swipe surface</string>
     <string name="always_sendtokodi_addon">Prefer SendToKodi addon</string>
     <string name="remote_bar_items">Bottom bar shortcuts</string>
     <string name="nav_drawer_items">Side menu shortcuts</string>
@@ -487,6 +489,10 @@
     <string name="web_search">Web Search</string>
 
     <!-- Strings for the Use hardware volume keys setting -->
+    <string name="poster_size">Item size</string>
+    <string name="poster_size_small">Small</string>
+    <string name="poster_size_medium">Medium</string>
+    <string name="poster_size_large">Large</string>
     <string name="use_hardware_volume_keys">Use device volume keys</string>
     <string name="use_hardware_volume_keys_never">Never</string>
     <string name="use_hardware_volume_keys_always">Always</string>

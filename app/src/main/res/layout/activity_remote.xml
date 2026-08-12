@@ -40,21 +40,48 @@
             app:layout_constraintTop_toTopOf="parent"
             style="@style/Widget.Kore.Toolbar" />
 
+        <LinearLayout
+            android:id="@+id/pager_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/default_toolbar">
+
+            <org.xbmc.kore.ui.widgets.HighlightButton
+                android:id="@+id/nav_now_playing"
+                style="@style/Widget.Kore.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/buttonbar_height"
+                android:layout_weight="1"
+                android:contentDescription="@string/now_playing"
+                android:src="@drawable/ic_round_play_arrow_24" />
+
+            <org.xbmc.kore.ui.widgets.HighlightButton
+                android:id="@+id/nav_remote"
+                style="@style/Widget.Kore.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/buttonbar_height"
+                android:layout_weight="1"
+                android:contentDescription="@string/remote"
+                android:src="@drawable/ic_round_gamepad_24" />
+
+            <org.xbmc.kore.ui.widgets.HighlightButton
+                android:id="@+id/nav_playlist"
+                style="@style/Widget.Kore.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/buttonbar_height"
+                android:layout_weight="1"
+                android:contentDescription="@string/playlist"
+                android:src="@drawable/ic_round_queue_24" />
+
+        </LinearLayout>
+
         <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/pager"
-            app:layout_constraintTop_toBottomOf="@id/default_toolbar"
+            app:layout_constraintTop_toBottomOf="@id/pager_tabs"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <org.xbmc.kore.ui.views.CirclePageIndicator
-            android:id="@+id/pager_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/default_toolbar"
-            android:layout_marginTop="@dimen/tiny_padding"
-            android:layout_marginBottom="2dp"
-            style="@style/Widget.Kore.PagerIndicator"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

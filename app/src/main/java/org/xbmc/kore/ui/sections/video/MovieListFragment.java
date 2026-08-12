@@ -394,6 +394,8 @@ public class MovieListFragment extends AbstractCursorListFragment {
 
         @Override
         public void bindView(Cursor cursor) {
+            UIUtils.applyPosterSize(context, artView, R.dimen.movielist_art_width, R.dimen.movielist_art_heigth);
+
             // Save the movie id
             dataHolder.setId(cursor.getInt(MovieListQuery.MOVIEID));
             dataHolder.setTitle(cursor.getString(MovieListQuery.TITLE));

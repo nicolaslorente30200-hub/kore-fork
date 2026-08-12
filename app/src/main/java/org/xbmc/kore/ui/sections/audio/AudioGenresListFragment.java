@@ -191,6 +191,8 @@ public class AudioGenresListFragment extends AbstractCursorListFragment {
 
         @Override
         public void bindView(Cursor cursor) {
+            UIUtils.applyPosterSize(context, artView, R.dimen.artistlist_art_width, R.dimen.artistlist_art_heigth);
+
             genreId = cursor.getInt(AudioGenreListQuery.GENREID);
             genreTitle = cursor.getString(AudioGenreListQuery.TITLE);
 

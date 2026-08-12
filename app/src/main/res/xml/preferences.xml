@@ -45,6 +45,13 @@
             android:defaultValue="false"
             app:singleLineTitle="false"/>
 
+        <SwitchPreferenceCompat
+            android:key="pref_remote_gesture_mode"
+            android:title="@string/remote_gesture_mode"
+            android:summary="@string/remote_gesture_mode_summary"
+            android:defaultValue="false"
+            app:singleLineTitle="false"/>
+
         <MultiSelectListPreference
             android:key="pref_remote_bar_items"
             android:title="@string/remote_bar_items"
@@ -97,6 +104,14 @@
             android:title="@string/show_now_playing_panel"
             android:summary="@string/show_now_playing_panel_summary"
             android:defaultValue="true"
+            app:singleLineTitle="false"/>
+
+        <ListPreference
+            android:key="pref_poster_size"
+            android:title="@string/poster_size"
+            android:entries="@array/poster_size_array"
+            android:entryValues="@array/poster_size_values_array"
+            android:defaultValue="medium"
             app:singleLineTitle="false"/>
 
         <MultiSelectListPreference
